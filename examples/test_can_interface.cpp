@@ -14,9 +14,9 @@ void handle_can_message(const can_frame& frame) {
 }
 
 int main() {
-  CANInterface can("vcan0");
+  CANInterface can;
 
-  if (!can.start()) {
+  if (!can.start("vcan0")) {
     std::cerr << "Failed to start CAN interface.\n";
     return 1;
   }

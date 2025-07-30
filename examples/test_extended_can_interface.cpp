@@ -23,8 +23,8 @@ void handle_extended_can_frame(const can_frame& frame) {
 int main() {
   signal(SIGINT, signal_handler);
 
-  CANInterface can("vcan0");
-  if (!can.start()) {
+  CANInterface can;
+  if (!can.start("vcan0")) {
     std::cerr << "Failed to start CAN interface.\n";
     return 1;
   }

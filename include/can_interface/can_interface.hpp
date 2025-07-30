@@ -19,11 +19,11 @@ class CANInterface {
 public:
   using CANCallback = std::function<void(const can_frame&)>;
 
-  explicit CANInterface(const std::string& interface_name)
-      : interface_name_(interface_name), running_(false), sock_(-1) {}
+  CANInterface() : running_(false), sock_(-1) {}
 
   ~CANInterface() { stop(); }
 
+  bool start(const std::string& interface_name);
   bool start();
   void stop();
 
@@ -35,7 +35,7 @@ public:
 private:
   void receive_loop();
 
-  std::string interface_name_;
+  std::string interface_name_ = "can0";
   int sock_;
   std::atomic<bool> running_;
   std::thread receiver_thread_;

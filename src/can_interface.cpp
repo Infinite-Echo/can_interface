@@ -2,7 +2,9 @@
 #include <iostream>
 #include <sys/select.h>
 
-bool CANInterface::start() {
+bool CANInterface::start(const std::string& interface_name) {
+  interface_name_ = interface_name;
+
   sock_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
   if (sock_ < 0) return false;
 
@@ -20,6 +22,10 @@ bool CANInterface::start() {
   running_ = true;
   receiver_thread_ = std::thread(&CANInterface::receive_loop, this);
   return true;
+}
+
+bool CANInterface::start() {
+  return start(interface_name_);
 }
 
 void CANInterface::stop() {

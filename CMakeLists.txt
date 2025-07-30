@@ -13,6 +13,7 @@ include_directories(include)
 
 # Create the library
 add_library(can_interface
+  SHARED
   src/can_interface.cpp
 )
 
